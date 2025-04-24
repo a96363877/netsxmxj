@@ -495,7 +495,6 @@ export default function NotificationsPage() {
               <h1 className="text-xl font-bold tracking-tight">لوحة الإشعارات</h1>
             </div>
             <div className="flex items-center gap-3">
-              <ThemeToggle />
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
